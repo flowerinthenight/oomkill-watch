@@ -9,4 +9,4 @@ RUN gcloud components install kubectl
 WORKDIR /app/
 COPY --from=0 /go/src/github.com/flowerinthenight/oomkill-watch/oomkill-watch .
 ENTRYPOINT ["/app/oomkill-watch"]
-CMD ["-slack="]
+CMD ["-slack=''"]
