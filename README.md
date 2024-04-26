@@ -43,7 +43,10 @@ spec:
       containers:
       - name: oomkillwatchd
         image: "your-image-here"
-        command: ["/bin/bash"]
-        args: ["-c", 'gcloud container clusters get-credentials {clustername} && /app/oomkill-watch -slack {channel}']
+        command:
+        - '/bin/bash'
+        - '-c'
+        - |
+          gcloud container clusters get-credentials {clustername} && /app/oomkill-watch -slack {channel}
         ...
 ```
