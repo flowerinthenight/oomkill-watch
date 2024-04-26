@@ -23,10 +23,27 @@ When started, the resulting `kubectl` child process will use its current config 
 
 The provided [Dockerfile](./Dockerfile) is for reference only as it's not configured to access any cluster.
 
-```sh
-# Build:
-$ docker build --rm -t oomkill-watch .
+I have only tried deploying this tool to a GKE cluster. You might want to use other commands to configure `kubectl` inside the pod for proper cluster access. Here's a snippet of the deployment file I used:
 
-# Run using docker:
-$ docker run -it --rm oomkill-watch
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+...
+spec:
+  selector:
+    matchLabels:
+      app: oomkillwatchd
+  replicas: 1
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: oomkillwatchd
+    spec:
+      containers:
+      - name: oomkillwatchd
+        image: "your-image-here"
+        command: ["/bin/bash"]
+        args: ["-c", 'gcloud container clusters get-credentials {clustername} && /app/oomkill-watch -slack {channel}']
+        ...
 ```
