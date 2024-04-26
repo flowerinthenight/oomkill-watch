@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: oomkill-watch
-        image: "your-image-here"
+        image: "{your-image-here}"
         command:
         - '/bin/bash'
         - '-c'
@@ -52,4 +52,4 @@ spec:
         ...
 ```
 
-It overrides the command from the `Dockerfile` by running `gcloud ...` first to configure the cluster access before running the tool.
+It overrides the command from the `Dockerfile` by running `gcloud container clusters get-credentials ...` first to configure the cluster access before running the tool.
