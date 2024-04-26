@@ -2,10 +2,12 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -13,6 +15,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"syscall"
+	"time"
 )
 
 var (
@@ -45,33 +48,49 @@ func handleEvent(e eventT) {
 
 	slog.Info("OOMKilled event:", "v", e)
 
-	if *slack != "" {
-		var sm strings.Builder
-		fmt.Fprintf(&sm, "%v", e.Message)
-		node := e.InvolvedObject.Name
-		if node == "" {
-			node = e.Source.Host
-		}
-
-		if node != "" {
-			fmt.Fprintf(&sm, ", from [%v]", node)
-		}
-
-		// slackPayload := slacknotify.SlackNotify{
-		// 	Attachments: []slacknotify.SlackAttachment{
-		// 		{
-		// 			Color:     "danger",
-		// 			Title:     "oomkilled detected",
-		// 			Text:      sm.String(),
-		// 			Footer:    "oomkillwatchd",
-		// 			Timestamp: time.Now().Unix(),
-		// 		},
-		// 	},
-		// }
-
-		// // See Dockerfile for the actual channel.
-		// slackPayload.SimpleNotify(*slack)
+	if *slack == "" {
+		return
 	}
+
+	var sm strings.Builder
+	fmt.Fprintf(&sm, "%v", e.Message)
+	node := e.InvolvedObject.Name
+	if node == "" {
+		node = e.Source.Host
+	}
+
+	if node != "" {
+		fmt.Fprintf(&sm, ", from [%v]", node)
+	}
+
+	p := map[string]interface{}{
+		"attachments": []map[string]interface{}{
+			{
+				"color":  "danger",
+				"title":  "oomkill-watch | notify",
+				"text":   sm.String(),
+				"footer": "oomkill-watch",
+				"ts":     time.Now().Unix(),
+			},
+		},
+	}
+
+	bp, _ := json.Marshal(p)
+	req, err := http.NewRequest("POST", *slack, bytes.NewReader(bp))
+	if err != nil {
+		slog.Error("NewRequest failed:", "err", err)
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	client := &http.Client{Timeout: 10 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		slog.Error("Do failed:", "err", err)
+		return
+	}
+
+	resp.Body.Close()
 }
 
 func main() {
