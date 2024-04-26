@@ -49,7 +49,6 @@ spec:
         - |
           gcloud container clusters get-credentials {clustername} && \
           /app/oomkill-watch -slack {channel}
-        ...
 ```
 
 It overrides the command from the `Dockerfile` by running `gcloud container clusters get-credentials ...` first to configure the cluster access before running the tool.
