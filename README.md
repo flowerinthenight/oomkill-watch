@@ -23,7 +23,7 @@ When started, the resulting `kubectl` child process will use its current config 
 
 The provided [Dockerfile](./Dockerfile) is for reference only as it's not configured to access any cluster.
 
-I have only tried deploying this tool to a GKE cluster. You might want to use other commands to configure `kubectl` inside the pod for proper cluster access. Here's a snippet of the deployment file I used:
+I have only tried deploying this tool to a GKE cluster. You might want to use other commands to configure `kubectl` inside the pod for proper cluster access for non-GKE clusters. Here's a snippet of the deployment file I used:
 
 ```yaml
 apiVersion: apps/v1
