@@ -51,3 +51,5 @@ spec:
           /app/oomkill-watch -slack {channel}
         ...
 ```
+
+It overrides the command from the `Dockerfile` by running `gcloud ...` first to configure the cluster access before running the tool.
