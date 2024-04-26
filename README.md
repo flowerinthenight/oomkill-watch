@@ -6,10 +6,15 @@
 
 ## Installation
 
-To run locally, you can either install using [Homebrew](https://brew.sh/):
+To run locally, you can either install it using [Homebrew](https://brew.sh/):
 
 ```sh
 $ brew install flowerinthenight/tap/oomkill-watch
+```
+or using your Go environment:
+
+```sh
+$ go install github.com/flowerinthenight/oomkill-watch
 ```
 
 ```sh
