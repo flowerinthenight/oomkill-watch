@@ -191,7 +191,6 @@ func main() {
 					fmt.Fprintf(&j, "%v", stxt)
 					err := json.Unmarshal([]byte(j.String()), &e)
 					if err == nil {
-						slog.Info("[event]", "v", e)
 						handleEvent(e)
 						j.Reset()
 					}
