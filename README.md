@@ -21,7 +21,7 @@ When started, the resulting `kubectl` child process will use its current config 
 
 ## Deployment
 
-The provided [Dockerfile](./Dockerfile) is for reference only as it's not setup to access any cluster.
+The provided [Dockerfile](./Dockerfile) is for reference only as it's not configured to access any cluster.
 
 ```sh
 # Build:
