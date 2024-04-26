@@ -16,6 +16,8 @@ import (
 	"sync/atomic"
 	"syscall"
 	"time"
+
+	gaxv2 "github.com/googleapis/gax-go/v2"
 )
 
 var (
@@ -230,6 +232,9 @@ func main() {
 		if atomic.LoadInt32(&ix) > 0 {
 			break
 		}
+
+		bo := gaxv2.Backoff{}
+		time.Sleep(bo.Pause())
 	}
 
 	w.Wait()
