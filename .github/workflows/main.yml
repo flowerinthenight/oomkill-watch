@@ -25,3 +25,13 @@ jobs:
 
     - name: Build binary
       run: go build -v
+
+    - name: Run goreleaser
+      uses: goreleaser/goreleaser-action@v3
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        distribution: goreleaser
+        version: latest
+        args: release --clean
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
