@@ -23,7 +23,7 @@ When started, the resulting `kubectl` child process will use its current config 
 
 The provided [Dockerfile](./Dockerfile) is for reference only as it's not configured to access any cluster.
 
-I have only tried deploying this tool to a GKE cluster. You might want to use other commands to configure `kubectl` inside the pod for proper cluster access for non-GKE clusters. Here's a snippet of the deployment file I used:
+I've only tried deploying this tool to a GKE cluster. You might want to use other commands to configure `kubectl` inside the pod for proper cluster access if you're not using GKE. Here's a snippet of the deployment file I'm using:
 
 ```yaml
 apiVersion: apps/v1
@@ -48,7 +48,7 @@ spec:
         - '-c'
         - |
           gcloud container clusters get-credentials {clustername} && \
-          /app/oomkill-watch -slack {channel}
+          /app/oomkill-watch -slack {channel-webhook}
 ```
 
 It overrides the command from the `Dockerfile` by running `gcloud container clusters get-credentials ...` first to configure the cluster access before running the tool.
