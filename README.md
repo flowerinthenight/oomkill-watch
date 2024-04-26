@@ -17,6 +17,8 @@ or using your Go environment:
 $ go install github.com/flowerinthenight/oomkill-watch
 ```
 
+When started, the resulting `kubectl` child process will use its current config for accessing a cluster. Therefore, make sure that your `kubectl` is pointing to the intended cluster first before running the tool.
+
 ```sh
 # Build:
 $ docker build --rm -t oomkill-watch .
