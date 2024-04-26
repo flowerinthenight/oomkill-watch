@@ -32,21 +32,22 @@ kind: Deployment
 spec:
   selector:
     matchLabels:
-      app: oomkillwatchd
+      app: oomkill-watch
   replicas: 1
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
-        app: oomkillwatchd
+        app: oomkill-watch
     spec:
       containers:
-      - name: oomkillwatchd
+      - name: oomkill-watch
         image: "your-image-here"
         command:
         - '/bin/bash'
         - '-c'
         - |
-          gcloud container clusters get-credentials {clustername} && /app/oomkill-watch -slack {channel}
+          gcloud container clusters get-credentials {clustername} && \
+          /app/oomkill-watch -slack {channel}
         ...
 ```
