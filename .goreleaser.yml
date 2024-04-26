@@ -20,13 +20,13 @@ release:
     owner: flowerinthenight
     name: oomkill-watch
 brews:
-- tap:
+- repository:
     owner: flowerinthenight
     name: homebrew-tap
   name: oomkill-watch
   homepage: "https://github.com/flowerinthenight/oomkill-watch"
   description: "A simple kubectl wrapper tool for tailing OOMKilling events."
-  folder: Formula
+  directory: Formula
   install: |
     bin.install "oomkill-watch"
   test: |
