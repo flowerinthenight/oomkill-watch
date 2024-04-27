@@ -51,4 +51,4 @@ spec:
           /app/oomkill-watch -slack {channel-webhook}
 ```
 
-It overrides the command from the `Dockerfile` by running `gcloud container clusters get-credentials ...` first to configure the cluster access before running the tool.
+It overrides the command from the `Dockerfile` by running `gcloud container clusters get-credentials ...` first to configure `kubectl`'s cluster access before running the tool.
