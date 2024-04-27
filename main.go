@@ -55,14 +55,14 @@ func handleEvent(e eventT) {
 	}
 
 	var sm strings.Builder
-	fmt.Fprintf(&sm, "%v", e.Message)
+	fmt.Fprintf(&sm, "%v.", e.Message)
 	node := e.InvolvedObject.Name
 	if node == "" {
 		node = e.Source.Host
 	}
 
 	if node != "" {
-		fmt.Fprintf(&sm, ", from [%v]", node)
+		fmt.Fprintf(&sm, "\n\nReported from [%v].", node)
 	}
 
 	p := map[string]interface{}{
