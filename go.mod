@@ -1,6 +1,6 @@
 module github.com/flowerinthenight/oomkill-watch
 
-go 1.26.0
+go 1.27.1
 
 require github.com/googleapis/gax-go/v2 v2.24.1
 

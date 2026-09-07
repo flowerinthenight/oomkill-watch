@@ -1,4 +1,4 @@
-FROM golang:1.26.4-trixie
+FROM golang:1.27.1-trixie
 COPY go.* /go/src/github.com/flowerinthenight/oomkill-watch/
 COPY *.go /go/src/github.com/flowerinthenight/oomkill-watch/
 WORKDIR /go/src/github.com/flowerinthenight/oomkill-watch/
